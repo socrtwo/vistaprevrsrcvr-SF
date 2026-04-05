@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+VistaPreviousVersionFileRecoverer
+</name>
+</assembly>
+<members>
+<member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.exitlkast">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.Folder_64">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.Ico_timeline">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.last">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:Vista_Previous_Version_File_Recoverer.My.Resources.Resources.minimi">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="T:Vista_Previous_Version_File_Recoverer.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,10 @@
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista_Previous_Version_File_Recoverer.Form1.resources
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista_Previous_Version_File_Recoverer.Resources.resources
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista Basic and Home Premium Previous Version File Explorer.vbproj.GenerateResource.Cache
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\x86\Debug\Vista Previous Version File Recoverer.exe.config
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\x86\Debug\Vista Previous Version File Recoverer.exe
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\x86\Debug\Vista Previous Version File Recoverer.pdb
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\x86\Debug\Vista Previous Version File Recoverer.xml
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista Previous Version File Recoverer.exe
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista Previous Version File Recoverer.xml
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\x86\Debug\Vista Previous Version File Recoverer.pdb

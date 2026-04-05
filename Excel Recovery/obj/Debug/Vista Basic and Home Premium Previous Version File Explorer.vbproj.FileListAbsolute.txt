@@ -1,0 +1,22 @@
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\ResolveAssemblyReference.cache
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\GenerateResource-ResGen.read.1.tlog
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\GenerateResource-ResGen.write.1.tlog
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\bin\Debug\Vista Home Basic and Premium Previous Version File Recoverer.exe.config
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\bin\Debug\Vista Home Basic and Premium Previous Version File Recoverer.exe
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\bin\Debug\Vista Home Basic and Premium Previous Version File Recoverer.pdb
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\bin\Debug\Vista Home Basic and Premium Previous Version File Recoverer.xml
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\Vista_Home_Basic_and_Premium_Previous_Version_File_Recoverer.Form1.resources
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\Vista_Home_Basic_and_Premium_Previous_Version_File_Recoverer.Resources.resources
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\Vista Home Basic and Premium Previous Version File Recoverer.exe
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\Vista Home Basic and Premium Previous Version File Recoverer.xml
+E:\Windows.old.000\Users\socrtwo\Documents\Visual Studio 2010\Projects\PreviousVersionExplorer\Source Code for MVS 2010\Excel Recovery\obj\Debug\Vista Home Basic and Premium Previous Version File Recoverer.pdb
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\Debug\Windows Previous Version File Recoverer.exe.config
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\Debug\Windows Previous Version File Recoverer.exe
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\Debug\Windows Previous Version File Recoverer.pdb
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\bin\Debug\Windows Previous Version File Recoverer.xml
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Windows_Previous_Version_File_Recoverer.Form1.resources
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Windows_Previous_Version_File_Recoverer.Resources.resources
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Vista Basic and Home Premium Previous Version File Explorer.vbproj.GenerateResource.Cache
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Windows Previous Version File Recoverer.exe
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Windows Previous Version File Recoverer.xml
+I:\Documents\Applications\Main Corrupt Recovery Applications\Previous Version Explorer\Excel Recovery\obj\Debug\Windows Previous Version File Recoverer.pdb
