@@ -1,5 +1,10 @@
 # Previous Version File Recoverer
 
+<!--PAGES_LINK_BANNER-->
+> 🌐 **Live page:** [https://socrtwo.github.io/vistaprevrsrcvr-SF/](https://socrtwo.github.io/vistaprevrsrcvr-SF/)  
+> 📦 **Releases:** [github.com/socrtwo/vistaprevrsrcvr-SF/releases](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases)
+<!--/PAGES_LINK_BANNER-->
+
 Recovers previous file versions from Windows Shadow Copies on Vista, 7, and 8 — including Home editions that lack the built-in Previous Versions feature.
 
 ## Screenshots
