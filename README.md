@@ -1,11 +1,6 @@
 <!--MODERNIZED:v1-->
 # Vistaprevrsrcvr
 
-<!--PAGES_LINK_BANNER-->
-> 🌐 **Live page:** [https://socrtwo.github.io/vistaprevrsrcvr-SF/](https://socrtwo.github.io/vistaprevrsrcvr-SF/)  
-> 📦 **Releases:** [github.com/socrtwo/vistaprevrsrcvr-SF/releases](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases)
-<!--/PAGES_LINK_BANNER-->
-
 > Migrated from SourceForge via SF2GH Migrator
 
 [![Live page](https://img.shields.io/badge/live-page-ff2e93?style=for-the-badge)](https://socrtwo.github.io/vistaprevrsrcvr-SF/)
