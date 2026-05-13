@@ -14,7 +14,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("This application allows users of Vista Basic and Home Premium and Windows 8 to recover previous versions of files stored as shadow copies in restore points, just like other versions of Vista and all versions of Windows 7.")> 
 <Assembly: AssemblyCompany("S2 Services")> 
 <Assembly: AssemblyProduct("Previous Version File Recoverer")> 
-<Assembly: AssemblyCopyright("Copyright ©  2013")> 
+<Assembly: AssemblyCopyright("Copyright © 2013-2026 S2 Services")>
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(True)> 
@@ -33,7 +33,7 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.0.0.0")> 
-<Assembly: AssemblyFileVersion("2.0.0.0")> 
+<Assembly: AssemblyVersion("3.0.0.0")>
+<Assembly: AssemblyFileVersion("3.0.0.0")>
 
 <Assembly: NeutralResourcesLanguageAttribute("en-US")> 

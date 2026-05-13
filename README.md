@@ -1,20 +1,40 @@
-<!--MODERNIZED:v1-->
+<!--MODERNIZED:v2-->
 # Vistaprevrsrcvr
 
-> Migrated from SourceForge via SF2GH Migrator
+> Migrated from SourceForge via SF2GH Migrator — modernized to .NET Framework 4.8 with multi-platform release bundles.
 
+[![Build](https://img.shields.io/github/actions/workflow/status/socrtwo/vistaprevrsrcvr-SF/build.yml?style=for-the-badge&color=22c55e&label=build)](https://github.com/socrtwo/vistaprevrsrcvr-SF/actions/workflows/build.yml)
 [![Live page](https://img.shields.io/badge/live-page-ff2e93?style=for-the-badge)](https://socrtwo.github.io/vistaprevrsrcvr-SF/)
 [![Releases](https://img.shields.io/github/v/release/socrtwo/vistaprevrsrcvr-SF?style=for-the-badge&color=7c3aed)](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases)
 [![License](https://img.shields.io/github/license/socrtwo/vistaprevrsrcvr-SF?style=for-the-badge&color=22d3ee)](https://github.com/socrtwo/vistaprevrsrcvr-SF/blob/main/LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/socrtwo/vistaprevrsrcvr-SF?style=for-the-badge&color=34d399)](https://github.com/socrtwo/vistaprevrsrcvr-SF/commits)
 
-🌐 **Live:** https://socrtwo.github.io/vistaprevrsrcvr-SF/  
-📦 **Downloads:** [Releases](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases)  
+🌐 **Live:** https://socrtwo.github.io/vistaprevrsrcvr-SF/
+📦 **Downloads:** [Releases](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases)
 📂 **Source:** [socrtwo/vistaprevrsrcvr-SF](https://github.com/socrtwo/vistaprevrsrcvr-SF)
 
 ---
 
-Recovers previous file versions from Windows Shadow Copies on Vista, 7, and 8 — including Home editions that lack the built-in Previous Versions feature.
+Recovers previous file versions from Windows Shadow Copies on Vista, 7, 8, 10, and 11 — including Home editions that lack the built-in Previous Versions feature.
+
+## Downloads
+
+Pick a bundle from the [latest release](https://github.com/socrtwo/vistaprevrsrcvr-SF/releases/latest):
+
+| Platform | Bundle | Runtime |
+| --- | --- | --- |
+| Windows | `…-windows-x64.zip` | .NET Framework 4.8 |
+| macOS | `…-macos.zip` | Mono (`brew install mono`) |
+| Linux | `…-linux.zip` | Mono (`mono-complete`) |
+| ChromeOS | `…-chromeos.zip` | Crostini + Mono |
+| Web | `…-web.zip` / [live PWA](https://socrtwo.github.io/vistaprevrsrcvr-SF/) | Any modern browser |
+| Android | `…-android.zip` / live PWA | Chrome → Add to Home Screen |
+| iOS | `…-ios.zip` / live PWA | Safari → Add to Home Screen |
+| Source | `…-source.zip` | — |
+
+Each non-Windows desktop bundle ships with a launcher (`run-linux.sh`, `run-macos.command`, `run-chromeos.sh`) and `PLATFORM-NOTES.md`. See [packaging/PLATFORM-NOTES.md](packaging/PLATFORM-NOTES.md) for setup details.
+
+> **Note:** VSS automation is Windows-only. On macOS / Linux / ChromeOS the UI runs over Mono and is useful for browsing shadow-copy snapshots from mounted Windows volumes.
 
 ## Screenshots
 
@@ -22,7 +42,7 @@ Visit the [SourceForge project page](https://sourceforge.net/projects/vistaprevr
 
 > **Tip:** If you have screenshots to contribute, open a PR adding them to a `screenshots/` folder!
 
-**Language:** VB.NET  
+**Language:** VB.NET
 **License:** MIT
 
 ## Features
@@ -30,14 +50,17 @@ Visit the [SourceForge project page](https://sourceforge.net/projects/vistaprevr
 - Accesses Windows Shadow Copy Service (VSS)
 - Works on Home editions (which lack the built-in Previous Versions UI)
 - Browse and restore previous versions of any file or folder
-- Supports Windows Vista, 7, and 8
+- Supports Windows Vista, 7, 8, 10, and 11
 - Simple file browser interface
+- Cross-platform launchers for macOS, Linux and ChromeOS via Mono
+- Installable Progressive Web App for Web, Android and iOS
 
 ## System Requirements
 
-- Windows 7 or later
-- Visual Studio 2010+ (Community edition works)
-- .NET Framework 4.0 or later
+- **Windows:** Windows 7 or later, .NET Framework 4.8
+- **macOS / Linux / ChromeOS:** Mono 6.x or later
+- **Mobile / Web:** any modern browser (Chrome, Safari, Edge, Firefox)
+- **Build from source:** Visual Studio 2019+ or MSBuild 16+
 
 ## Installation & Usage
 

@@ -1,0 +1,185 @@
+name: Multi-platform Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. v3.0.0)'
+        required: true
+        default: 'v3.0.0'
+
+permissions:
+  contents: write
+
+env:
+  PRODUCT_NAME: VistaPrevRsrcvr
+  PRODUCT_LONG: "Previous Version File Recoverer"
+
+jobs:
+  build-windows:
+    name: Build Windows binary
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.vars.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: vars
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: microsoft/setup-msbuild@v2
+      - uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore "Previous Version Explorer.sln"
+        continue-on-error: true
+
+      - name: Build solution
+        run: msbuild "Previous Version Explorer.sln" /p:Configuration=Release /p:Platform="Any CPU" /m
+
+      - name: Stage Windows artifacts
+        shell: pwsh
+        run: |
+          $stage = "stage/windows"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          $bin = Get-ChildItem -Recurse -Path "Excel Recovery/bin/Release" -Filter "*.exe" | Select-Object -First 1
+          if (-not $bin) {
+            Write-Error "No EXE produced"
+            exit 1
+          }
+          Copy-Item "Excel Recovery/bin/Release/*" -Destination $stage -Recurse -Force
+          Copy-Item "README.md" -Destination $stage
+          Copy-Item "LICENSE" -Destination $stage
+
+      - name: Zip Windows package
+        shell: pwsh
+        run: |
+          Compress-Archive -Path stage/windows/* -DestinationPath "${{ env.PRODUCT_NAME }}-${{ steps.vars.outputs.version }}-windows-x64.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: ${{ env.PRODUCT_NAME }}-${{ steps.vars.outputs.version }}-windows-x64.zip
+
+  package-unix:
+    name: Package ${{ matrix.platform }} bundle
+    needs: build-windows
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - platform: linux
+            launcher: run-linux.sh
+          - platform: macos
+            launcher: run-macos.command
+          - platform: chromeos
+            launcher: run-chromeos.sh
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows
+          path: artifacts/
+
+      - name: Assemble ${{ matrix.platform }} bundle
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.build-windows.outputs.version }}"
+          STAGE="stage/${{ matrix.platform }}"
+          mkdir -p "$STAGE"
+          unzip -q artifacts/${{ env.PRODUCT_NAME }}-$VERSION-windows-x64.zip -d "$STAGE"
+          cp packaging/${{ matrix.launcher }} "$STAGE/${{ matrix.launcher }}"
+          cp packaging/PLATFORM-NOTES.md "$STAGE/PLATFORM-NOTES.md"
+          chmod +x "$STAGE/${{ matrix.launcher }}"
+          (cd stage && zip -qr "../${{ env.PRODUCT_NAME }}-$VERSION-${{ matrix.platform }}.zip" "${{ matrix.platform }}")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: ${{ env.PRODUCT_NAME }}-${{ needs.build-windows.outputs.version }}-${{ matrix.platform }}.zip
+
+  package-web:
+    name: Package Web / Android / iOS (PWA)
+    needs: build-windows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build PWA bundle
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.build-windows.outputs.version }}"
+          STAGE="stage/web"
+          mkdir -p "$STAGE"
+          cp -r web/. "$STAGE/"
+          cp LICENSE "$STAGE/LICENSE"
+          cp README.md "$STAGE/README.md"
+          (cd stage && zip -qr "../${{ env.PRODUCT_NAME }}-$VERSION-web.zip" web)
+
+          # Android: TWA-style bundle (PWA + manifest for adding to home screen)
+          cp -r "$STAGE" "stage/android"
+          (cd stage && zip -qr "../${{ env.PRODUCT_NAME }}-$VERSION-android.zip" android)
+
+          # iOS: Add-to-home-screen PWA bundle
+          cp -r "$STAGE" "stage/ios"
+          (cd stage && zip -qr "../${{ env.PRODUCT_NAME }}-$VERSION-ios.zip" ios)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-pwa
+          path: |
+            ${{ env.PRODUCT_NAME }}-${{ needs.build-windows.outputs.version }}-web.zip
+            ${{ env.PRODUCT_NAME }}-${{ needs.build-windows.outputs.version }}-android.zip
+            ${{ env.PRODUCT_NAME }}-${{ needs.build-windows.outputs.version }}-ios.zip
+
+  package-source:
+    name: Package source archive
+    needs: build-windows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build source zip
+        run: |
+          set -euo pipefail
+          VERSION="${{ needs.build-windows.outputs.version }}"
+          git archive --format=zip --prefix="${{ env.PRODUCT_NAME }}-$VERSION/" -o "${{ env.PRODUCT_NAME }}-$VERSION-source.zip" HEAD
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: source
+          path: ${{ env.PRODUCT_NAME }}-${{ needs.build-windows.outputs.version }}-source.zip
+
+  release:
+    name: Publish GitHub Release
+    needs: [build-windows, package-unix, package-web, package-source]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.build-windows.outputs.version }}
+          name: ${{ needs.build-windows.outputs.version }}
+          body_path: packaging/RELEASE-NOTES.md
+          files: artifacts/*
+          fail_on_unmatched_files: false
+          draft: false
+          prerelease: false
