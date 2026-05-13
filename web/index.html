@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f0322">
+<meta name="description" content="Recover previous file versions from Windows Shadow Copies on Vista, 7, and 8 — including Home editions.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VistaPrevRsrcvr">
 <title>Loading…</title>
 <style>
   :root { color-scheme: dark; }
@@ -50,6 +57,31 @@
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   }
   .links a:hover { transform: translateY(-1px); border-color: #7c3aed; background: rgba(124,58,237,0.18); }
+  .links button {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 16px; color: #f5f3ff; cursor: pointer;
+    background: linear-gradient(135deg, rgba(255,46,147,0.35), rgba(124,58,237,0.35));
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px; font: 600 0.9rem 'Inter', system-ui, sans-serif;
+    transition: transform .15s, border-color .15s, background .15s;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  .links button:hover { transform: translateY(-1px); border-color: #ff2e93; }
+  .links button[hidden] { display: none; }
+  .platforms {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px; margin: 18px 0 8px;
+  }
+  .platforms a {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 14px 16px; text-decoration: none; color: #f5f3ff;
+    background: rgba(20,10,40,0.55); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; transition: transform .15s, border-color .15s;
+  }
+  .platforms a:hover { transform: translateY(-1px); border-color: #22d3ee; }
+  .platforms .p-name { font-weight: 700; font-size: 0.95rem; }
+  .platforms .p-sub { font-size: 0.78rem; color: rgba(245,243,255,0.6); }
+  .install-note { font-size: 0.85rem; color: rgba(245,243,255,0.6); margin-top: 4px; }
   .card {
     padding: 32px 28px;
     background: rgba(20,10,40,0.55);
@@ -99,7 +131,14 @@
   <header>
     <h1 id="title">Loading…</h1>
     <p id="desc"></p>
-    <nav class="links" id="links"></nav>
+    <nav class="links" id="links">
+      <button id="install" hidden type="button">⤓  Install app</button>
+    </nav>
+    <section id="downloads">
+      <h2 style="font-size:1.1rem;margin:18px 0 4px;color:rgba(245,243,255,0.85)">Downloads</h2>
+      <div class="platforms" id="platforms"></div>
+      <p class="install-note">Web, Android, iOS and ChromeOS install this page as a PWA — use “Add to Home Screen” in your browser, or the Install button above.</p>
+    </section>
   </header>
   <main class="card" id="readme">
     <p class="loading">Fetching README…</p>
@@ -168,7 +207,56 @@
   } else {
     readmeEl.innerHTML = '<p class="loading">No README found in this repository.</p>';
   }
+
+  // Render platform downloads from the latest release
+  try {
+    const rel = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`, { headers }).then(r => r.ok ? r.json() : null);
+    const platforms = [
+      { key: 'windows',  name: 'Windows',  sub: '.NET 4.8 — .exe' },
+      { key: 'macos',    name: 'macOS',    sub: 'Mono launcher' },
+      { key: 'linux',    name: 'Linux',    sub: 'Mono launcher' },
+      { key: 'chromeos', name: 'ChromeOS', sub: 'Crostini bundle' },
+      { key: 'android',  name: 'Android',  sub: 'PWA bundle' },
+      { key: 'ios',      name: 'iOS',      sub: 'PWA bundle' },
+      { key: 'web',      name: 'Web',      sub: 'PWA bundle' },
+    ];
+    const grid = document.getElementById('platforms');
+    platforms.forEach(p => {
+      const href = (() => {
+        if (!rel || !Array.isArray(rel.assets)) return repoUrl + '/releases/latest';
+        const m = rel.assets.find(a => new RegExp(`-${p.key}\\.zip$|-${p.key}-x64\\.zip$`, 'i').test(a.name));
+        return m ? m.browser_download_url : (repoUrl + '/releases/latest');
+      })();
+      const a = document.createElement('a');
+      a.href = href; a.target = '_blank'; a.rel = 'noopener';
+      a.innerHTML = `<span class="p-name">${p.name}</span><span class="p-sub">${p.sub}</span>`;
+      grid.appendChild(a);
+    });
+  } catch (e) { /* ignore */ }
 })();
+
+// PWA install + service worker
+let deferredPrompt = null;
+const installBtn = document.getElementById('install');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installBtn) installBtn.hidden = false;
+});
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.hidden = true;
+  });
+}
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
