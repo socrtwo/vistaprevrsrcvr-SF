@@ -10,6 +10,10 @@ on:
         description: 'Release version (e.g. v3.0.0)'
         required: true
         default: 'v3.0.0'
+      ref:
+        description: 'Git ref to build (tag, branch, or SHA). Leave empty to use the workflow ref.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -26,6 +30,8 @@ jobs:
       version: ${{ steps.vars.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - id: vars
         shell: bash
@@ -60,6 +66,22 @@ jobs:
           Copy-Item "README.md" -Destination $stage
           Copy-Item "LICENSE" -Destination $stage
 
+      - name: Sign Windows binaries (Azure Trusted Signing)
+        uses: azure/trusted-signing-action@v0.5.1
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: ${{ secrets.AZURE_TRUSTED_SIGNING_ENDPOINT }}
+          trusted-signing-account-name: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT }}
+          certificate-profile-name: ${{ secrets.AZURE_TRUSTED_SIGNING_PROFILE }}
+          files-folder: stage/windows
+          files-folder-filter: exe,msi,dll
+          files-folder-recurse: true
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
       - name: Zip Windows package
         shell: pwsh
         run: |
@@ -85,6 +107,8 @@ jobs:
             launcher: run-chromeos.sh
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - name: Download Windows build
         uses: actions/download-artifact@v4
@@ -115,6 +139,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - name: Build PWA bundle
         run: |
@@ -149,6 +175,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - name: Build source zip
         run: |
@@ -167,6 +195,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - uses: actions/download-artifact@v4
         with:
