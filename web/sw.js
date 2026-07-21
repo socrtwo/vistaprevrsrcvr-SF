@@ -1,7 +1,8 @@
-const CACHE = 'vistaprevrsrcvr-v3';
+const CACHE = 'vistaprevrsrcvr-v4';
 const ASSETS = [
   './',
   './index.html',
+  './s2-file-id.js',
   './manifest.webmanifest',
   './icons/icon.svg',
   './icons/icon-192.png',
